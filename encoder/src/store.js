@@ -1,18 +1,25 @@
 import uuid from 'uuid/v1'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexUndoRedo from 'vuex-undo-redo';
 
 Vue.use(Vuex)
+Vue.use(VuexUndoRedo)
 
 const getTileIndex = (tiles, id) => tiles.findIndex((tile) => tile.id === id)
 const getTileObject = (tiles, id) => tiles.find((tile) => tile.id === id)
 const isOptionalPresent = (optional) => optional !== undefined
 
+const createInitialState = () => ({
+  tiles: []
+})
+
 export default new Vuex.Store({
-  state: {
-    tiles: []
-  },
+  state: createInitialState(),
   mutations: {
+    emptyState () {
+      this.replaceState(createInitialState())
+    },
     pushTile (state, id) {
       state.tiles.push({
         id,

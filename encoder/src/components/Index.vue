@@ -3,10 +3,10 @@
     <v-app-bar app color="primary" dark>
       <v-toolbar-title>2FA Backup Encoder</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon disabled>
+      <v-btn icon :disabled="!canUndo" @click="undo">
         <v-icon>mdi-undo</v-icon>
       </v-btn>
-      <v-btn icon disabled>
+      <v-btn icon :disabled="!canRedo" @click="redo">
         <v-icon>mdi-redo</v-icon>
       </v-btn>
       <v-btn icon disabled>
