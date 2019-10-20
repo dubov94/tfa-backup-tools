@@ -41,9 +41,9 @@
       <v-responsive :aspect-ratio="1">
         <v-textarea v-if="displayTextArea" hide-details outlined no-resize
           :rows="10" ref="textArea" :value="content" @input="updateContent"
-          @blur="disableEditing">
+          @blur="blurContent">
         </v-textarea>
-        <img v-if="displayQrRender" :src="renderUrl" @click="enableEditing">
+        <img v-if="displayQrRender" :src="renderUrl" @click="focusContent">
       </v-responsive>
     </v-card-text>
     <v-card-actions>
@@ -80,9 +80,14 @@
       }
     },
     async created () {
-      await this.updateRender()
+      if (this.canSwithToRender) {
+        await this.updateRender()
+      }
     },
     computed: {
+      canSwithToRender () {
+        return !isStringEmpty(this.content)
+      },
       displayTextArea () {
         return this.editing
       },
@@ -98,9 +103,7 @@
     },
     methods: {
       async updateRender () {
-        window.QrCode = QrCode
-        this.renderUrl = isStringEmpty(this.content)
-          ? null : await QrCode.toDataURL(this.content)
+        this.renderUrl = await QrCode.toDataURL(this.content)
       },
       updateHeader (value) {
         this.$emit('new-header', value)
@@ -108,11 +111,13 @@
       updateContent (value) {
         this.$emit('new-content', value)
       },
-      async disableEditing () {
-        await this.updateRender()
-        this.editing = false
+      async blurContent () {
+        if (this.canSwithToRender) {
+          await this.updateRender()
+          this.editing = false
+        }
       },
-      async enableEditing () {
+      async focusContent () {
         this.editing = true
         this.renderUrl = null
         await this.$nextTick()

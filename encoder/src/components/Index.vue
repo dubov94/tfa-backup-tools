@@ -1,51 +1,113 @@
 <template>
-  <tile :header="tile.header" :content="tile.content" :mode="mode"
-    @new-header="updateHeader(tile.id, $event)"
-    @new-content="updateContent(tile.id, $event)"
-    @start-dnd="startDnd(tile.id)"
-    @cancel-dnd="cancelDnd"
-    @place-to-left="placeToSide(tile.id, -1)"
-    @place-to-right="placeToSide(tile.id, 1)"
-    @remove="removeTile(tile.id)"></tile>
+  <div>
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>2FA Backup Encoder</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon disabled>
+        <v-icon>mdi-undo</v-icon>
+      </v-btn>
+      <v-btn icon disabled>
+        <v-icon>mdi-redo</v-icon>
+      </v-btn>
+      <v-btn icon disabled>
+        <v-icon>mdi-printer</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-content>
+      <v-container>
+        <v-row>
+          <v-col cols="4" v-for="tile in tiles" :key="tile.id">
+            <tile :header="tile.header" :content="tile.content"
+              :mode="idToMode[tile.id]"
+              @new-header="updateHeader(tile.id, $event)"
+              @new-content="updateContent(tile.id, $event)"
+              @start-dnd="startDnd(tile.id)"
+              @cancel-dnd="cancelDnd"
+              @place-to-left="placeToSide(tile.id, -1)"
+              @place-to-right="placeToSide(tile.id, 1)"
+              @remove="removeTile(tile.id)">
+            </tile>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+    <v-btn fab fixed bottom right color="primary" @click="createTile">
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
-import Tile from '@/components/Tile'
-import TileMode from '@/components/tile-mode'
+  import Tile from '@/components/Tile'
+  import TileMode from '@/components/tile-mode'
+  import {mapState, mapActions} from 'vuex'
 
-export default {
-  components: {
-    tile: Tile
-  },
-  data () {
-    return {
-      tile: {
-        id: '0',
-        header: 'Header',
-        content: 'Content'
+  export default {
+    components: {
+      tile: Tile
+    },
+    created () {
+      this.onKeydown = this.onKeydown.bind(this)
+    },
+    mounted () {
+      window.addEventListener('keydown', this.onKeydown)
+    },
+    beforeDestroy () {
+      window.removeEventListener('keydown', this.onKeydown)
+    },
+    data () {
+      return { dndTile: null }
+    },
+    computed: {
+      ...mapState(['tiles']),
+      idToMode () {
+        let ret = {}
+        for (let { id } of this.tiles) {
+          if (this.dndTile === null) {
+            ret[id] = TileMode.DEFAULT
+          } else {
+            ret[id] = this.dndTile === id
+              ? TileMode.DND_SOURCE
+              : TileMode.DND_TARGET
+          }
+        }
+        return ret
+      }
+    },
+    methods: {
+      ...mapActions([
+        'createTile',
+        'deleteTile',
+        'updateTile',
+        'moveTile'
+      ]),
+      updateHeader (id, header) {
+        this.updateTile({ id, header })
       },
-      mode: TileMode.DEFAULT
-    }
-  },
-  methods: {
-    updateHeader (id, value) {
-      console.log(id)
-      this.tile.header = value
-    },
-    updateContent (id, value) {
-      console.log(id)
-      this.tile.content = value
-    },
-    startDnd (id) {
-      console.log(id)
-    },
-    cancelDnd () {},
-    placeToSide (id, delta) {
-      console.log(id, delta)
-    },
-    removeTile (id) {
-      console.log(id)
+      updateContent (id, content) {
+        this.updateTile({ id, content })
+      },
+      removeTile (id) {
+        this.deleteTile(id)
+        if (id === this.dndTile) {
+          this.cancelDnd()
+        }
+      },
+      startDnd (id) {
+        this.dndTile = id
+      },
+      cancelDnd () {
+        this.dndTile = null
+      },
+      placeToSide(id, delta) {
+        this.moveTile({ from: this.dndTile, to: id, delta })
+        this.cancelDnd()
+      },
+      onKeydown (event) {
+        if (event.keyCode === 27 && this.dndTile !== null) {
+          this.cancelDnd()
+        }
+      }
     }
   }
-}
 </script>
