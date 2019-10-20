@@ -9,7 +9,7 @@
       <v-btn icon :disabled="!canRedo" @click="redo">
         <v-icon>mdi-redo</v-icon>
       </v-btn>
-      <v-btn icon @click="print">
+      <v-btn icon @click="output">
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </v-app-bar>
@@ -38,10 +38,10 @@
 </template>
 
 <script>
-  import jsPdf from 'jspdf'
   import Tile from '@/components/Tile'
   import TileMode from '@/components/tile-mode'
   import {mapState, mapActions} from 'vuex'
+  import {print} from '@/components/printer'
 
   export default {
     components: {
@@ -110,11 +110,11 @@
         this.moveTile({ from: this.dndTile, to: id, delta })
         this.cancelDnd()
       },
-      print () {
-        let document = new jsPdf()
-        document.text('Hello, world!', 10, 10)
-        document.autoPrint()
-        document.output('dataurlnewwindow')
+      async output () {
+        await print(this.tiles.map((tile) => ({
+          header: tile.header,
+          content: tile.content
+        })))
       },
       onKeydown (event) {
         if (event.ctrlKey) {
