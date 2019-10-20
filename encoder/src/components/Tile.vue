@@ -66,8 +66,8 @@
 </template>
 
 <script>
+  import qrCode from 'qrcode'
   import TileMode from '@/components/tile-mode'
-  import QrCode from 'qrcode'
 
   const isStringEmpty = (string) => string === ''
 
@@ -105,7 +105,7 @@
     },
     methods: {
       async updateRender () {
-        this.renderUrl = await QrCode.toDataURL(this.dataContent)
+        this.renderUrl = await qrCode.toDataURL(this.dataContent)
       },
       updateHeader (value) {
         this.$emit('new-header', value)
