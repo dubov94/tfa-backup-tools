@@ -34,14 +34,14 @@
     </v-btn>
     <v-card-title>
       <v-text-field hide-details outlined label="Label"
-        :value="header" @input="updateHeader">
+        v-model="dataHeader" @change="updateHeader">
       </v-text-field>
     </v-card-title>
     <v-card-text>
       <v-responsive :aspect-ratio="1">
         <v-textarea v-if="displayTextArea" hide-details outlined no-resize
-          :rows="10" ref="textArea" :value="content" @input="updateContent"
-          @blur="blurContent">
+          :rows="10" ref="textArea" v-model="dataContent"
+          @change="updateContent" @blur="blurContent">
         </v-textarea>
         <img v-if="displayQrRender" :src="renderUrl" @click="focusContent">
       </v-responsive>
@@ -75,7 +75,9 @@
     props: ['header', 'content', 'mode'],
     data () {
       return {
-        editing: isStringEmpty(this.content),
+        showSource: isStringEmpty(this.content),
+        dataHeader: this.header,
+        dataContent: this.content,
         renderUrl: null
       }
     },
@@ -86,10 +88,10 @@
     },
     computed: {
       canSwithToRender () {
-        return !isStringEmpty(this.content)
+        return !isStringEmpty(this.dataContent)
       },
       displayTextArea () {
-        return this.editing
+        return this.showSource
       },
       displayQrRender () {
         return this.renderUrl !== null && !this.displayTextArea
@@ -103,7 +105,7 @@
     },
     methods: {
       async updateRender () {
-        this.renderUrl = await QrCode.toDataURL(this.content)
+        this.renderUrl = await QrCode.toDataURL(this.dataContent)
       },
       updateHeader (value) {
         this.$emit('new-header', value)
@@ -114,11 +116,11 @@
       async blurContent () {
         if (this.canSwithToRender) {
           await this.updateRender()
-          this.editing = false
+          this.showSource = false
         }
       },
       async focusContent () {
-        this.editing = true
+        this.showSource = true
         this.renderUrl = null
         await this.$nextTick()
         this.$refs.textArea.focus()
@@ -137,6 +139,22 @@
       },
       remove () {
         this.$emit('remove')
+      }
+    },
+    watch: {
+      async content (newValue) {
+        if (newValue !== this.dataContent) {
+          this.dataContent = newValue
+          this.showSource = isStringEmpty(newValue)
+          if (!this.showSource) {
+            await this.updateRender()
+          }
+        }
+      },
+      header (newValue) {
+        if (newValue !== this.dataHeader) {
+          this.dataHeader = newValue
+        }
       }
     }
   }
