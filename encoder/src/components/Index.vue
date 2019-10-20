@@ -128,12 +128,12 @@
         }
       },
       onBeforeUnload (event) {
-        let message = null
         if (!this.isSafeToQuit) {
-          message = 'Quit?'
+          event.returnValue = true
+          return true
+        } else {
+          return null
         }
-        event.returnValue = message
-        return message
       }
     }
   }
