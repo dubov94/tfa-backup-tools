@@ -110,7 +110,13 @@
         this.cancelDnd()
       },
       onKeydown (event) {
-        if (event.keyCode === 27 && this.dndTile !== null) {
+        if (event.ctrlKey) {
+          if (event.keyCode === 90 && this.canUndo) {
+            this.undo()
+          } else if (event.keyCode === 89 && this.canRedo) {
+            this.redo()
+          }
+        } else if (event.keyCode === 27 && this.dndTile !== null) {
           this.cancelDnd()
         }
       },
