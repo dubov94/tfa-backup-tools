@@ -48,11 +48,14 @@
     },
     created () {
       this.onKeydown = this.onKeydown.bind(this)
+      this.onBeforeUnload = this.onBeforeUnload.bind(this)
     },
     mounted () {
       window.addEventListener('keydown', this.onKeydown)
+      window.addEventListener('beforeunload', this.onBeforeUnload)
     },
     beforeDestroy () {
+      window.removeEventListener('beforeunload', this.onBeforeUnload)
       window.removeEventListener('keydown', this.onKeydown)
     },
     data () {
@@ -72,6 +75,9 @@
           }
         }
         return ret
+      },
+      isSafeToQuit () {
+        return this.tiles.length === 0
       }
     },
     methods: {
@@ -107,6 +113,14 @@
         if (event.keyCode === 27 && this.dndTile !== null) {
           this.cancelDnd()
         }
+      },
+      onBeforeUnload (event) {
+        let message = null
+        if (!this.isSafeToQuit) {
+          message = 'Quit?'
+        }
+        event.returnValue = message
+        return message
       }
     }
   }
