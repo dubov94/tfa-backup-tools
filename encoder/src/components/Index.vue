@@ -47,17 +47,13 @@
     components: {
       tile: Tile
     },
-    created () {
-      this.onKeydown = this.onKeydown.bind(this)
-      this.onBeforeUnload = this.onBeforeUnload.bind(this)
-    },
     mounted () {
-      window.addEventListener('keydown', this.onKeydown)
       window.addEventListener('beforeunload', this.onBeforeUnload)
+      window.addEventListener('keydown', this.onKeyDown)
     },
     beforeDestroy () {
+      window.removeEventListener('keydown', this.onKeyDown)
       window.removeEventListener('beforeunload', this.onBeforeUnload)
-      window.removeEventListener('keydown', this.onKeydown)
     },
     data () {
       return { dndTile: null }
@@ -116,7 +112,7 @@
           content: tile.content
         })))
       },
-      onKeydown (event) {
+      onKeyDown (event) {
         if (event.ctrlKey) {
           if (event.keyCode === 90 && this.canUndo) {
             this.undo()
