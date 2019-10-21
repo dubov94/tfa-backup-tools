@@ -16,13 +16,12 @@ export const print = async (tiles) => {
   document.setFontSize(FONT_SIZE)
   let letterHeight = document.getTextDimensions('T').h
   let numberOfPages = Math.ceil(tiles.length / TILES_PER_PAGE)
-  let page = document
   let tileIndex = 0
   for (let pageIndex = 0; pageIndex < numberOfPages; ++pageIndex) {
     if (pageIndex > 0) {
-        page = page.addPage()
+        document.addPage()
     }
-    let dimensions = page.internal.pageSize
+    let dimensions = document.internal.pageSize
     let sH = dimensions.getWidth() / NUMBER_OF_COLUMNS
     let sV = dimensions.getHeight() / NUMBER_OF_ROWS
     let side = Math.min(sH, sV - letterHeight)
@@ -38,7 +37,7 @@ export const print = async (tiles) => {
               imageUrl, 'PNG', x * sH + dH, y * sV + dV, side, side)
           }
           if (tile.header !== '') {
-            let width = page.getTextWidth(tile.header)
+            let width = document.getTextWidth(tile.header)
             document.text(
               tile.header, x * sH + dH + (sH - width) / 2, y * sV + dV + side)
           }
@@ -47,10 +46,10 @@ export const print = async (tiles) => {
       }
     }
     for (let y = 1; y < NUMBER_OF_ROWS; ++y) {
-      page.line(0, y * sV, dimensions.getWidth(), y * sV)
+      document.line(0, y * sV, dimensions.getWidth(), y * sV)
     }
     for (let x = 1; x < NUMBER_OF_COLUMNS; ++x) {
-      page.line(x * sH, 0, x * sH, dimensions.getHeight())
+      document.line(x * sH, 0, x * sH, dimensions.getHeight())
     }
   }
   document.autoPrint()
