@@ -14,11 +14,13 @@
     <div class="text-h6">Parameters</div>
     <v-textarea label="Secret to split" solo no-resize class="mt-4"
       :value="secret" @input="setSecret"></v-textarea>
-    <v-slider label="Number of shares" thumb-label="always" class="mt-4"
-      :value="shareCount" @input="setShareCount" :min="2" :max="16"></v-slider>
-    <v-slider label="Unlocking threshold" thumb-label="always" class="mt-4"
-      :value="threshold" @input="setThreshold" :min="2" :max="shareCount"
-      :disabled="shareCount === 2"></v-slider>
+    <v-range-slider thumb-label="always" class="mt-4"
+      :value="[threshold, shareCount]" @input="updateRange" :min="2" :max="16">
+    </v-range-slider>
+    <p>
+      It will be enough to provide <strong>{{ threshold }}</strong> shares out of
+      <strong>{{ shareCount }}</strong> below to restore the original secret.
+    </p>
     <div class="text-h6">Shares</div>
     <p class="mt-2">
       You can click each individual share to copy, or just
@@ -65,6 +67,10 @@
         SET_SECRET, SET_SHARE_COUNT, SET_THRESHOLD
       ]),
       ...mapMutations(SNACKBAR_NAMESPACE, [SHOW_SNACKBAR]),
+      updateRange ([lower, upper]: [number, number]): void {
+        this.setShareCount(upper)
+        this.setThreshold(lower)
+      },
       async copyShare (index: number): Promise<void> {
         await navigator.clipboard.writeText(this.shares[index])
         this.showSnackbar('Copied')
