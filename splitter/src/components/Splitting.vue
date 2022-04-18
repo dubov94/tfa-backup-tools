@@ -17,8 +17,9 @@
     <v-slider label="Number of shares" thumb-label="always" class="mt-4"
       :value="shareCount" @input="setShareCount" :min="2" :max="16"></v-slider>
     <v-slider label="Unlocking threshold" thumb-label="always" class="mt-4"
-      :value="threshold" @input="setThreshold" :min="2" :max="shareCount"></v-slider>
-    <div class="text-h6">Results</div>
+      :value="threshold" @input="setThreshold" :min="2" :max="shareCount"
+      :disabled="shareCount === 2"></v-slider>
+    <div class="text-h6">Shares</div>
     <p class="mt-2">
       You can click each individual share to copy, or just
       <a href="#" @click.prevent="copyAll">copy all</a>.
@@ -33,53 +34,44 @@
         </template>
       </v-list>
     </v-card>
-    <v-snackbar :timeout="1000" v-model="snackbar">Copied!</v-snackbar>
   </v-container>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
-  import secrets from 'secrets.js'
-
-  const PAD_LENGTH = 1024
+  import { mapState, mapMutations, mapGetters } from 'vuex'
+  import {
+    SPLITTING_NAMESPACE,
+    SplittingState,
+    GET_SHARES,
+    SET_SECRET,
+    SET_SHARE_COUNT,
+    SET_THRESHOLD,
+    SNACKBAR_NAMESPACE,
+    SHOW_SNACKBAR
+  } from '@/store/domain'
 
   export default Vue.extend({
-    data () {
-      return {
-        snackbar: false,
-        secret: '',
-        shareCount: 3,
-        threshold: 2
-      }
-    },
     computed: {
-      shares (): string[] {
-        return secrets.share(
-          secrets.str2hex(this.secret),
-          this.shareCount,
-          this.threshold,
-          PAD_LENGTH
-        )
-      }
+      ...mapState<SplittingState>(SPLITTING_NAMESPACE, {
+        secret: (state: SplittingState) => state.secret,
+        shareCount: (state: SplittingState) => state.shareCount,
+        threshold: (state: SplittingState) => state.threshold
+      }),
+      ...mapGetters(SPLITTING_NAMESPACE, [GET_SHARES])
     },
     methods: {
-      setSecret (value: string): void {
-        this.secret = value
-      },
-      setShareCount (value: number): void {
-        this.shareCount = value
-        this.threshold = Math.min(this.threshold, value)
-      },
-      setThreshold (value: number): void {
-        this.threshold = value
-      },
+      ...mapMutations(SPLITTING_NAMESPACE, [
+        SET_SECRET, SET_SHARE_COUNT, SET_THRESHOLD
+      ]),
+      ...mapMutations(SNACKBAR_NAMESPACE, [SHOW_SNACKBAR]),
       async copyShare (index: number): Promise<void> {
         await navigator.clipboard.writeText(this.shares[index])
-        this.snackbar = true
+        this.showSnackbar('Copied')
       },
       async copyAll (): Promise<void> {
         await navigator.clipboard.writeText(this.shares.join('\n'))
-        this.snackbar = true
+        this.showSnackbar('Copied')
       }
     }
   })

@@ -17,6 +17,31 @@
     </v-app-bar>
     <v-main>
       <router-view></router-view>
+      <v-snackbar :timeout="1000" :value="snackbarIndicator" @input="snackbarInput">
+        {{ snackbarText }}
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
+
+<script lang="ts">
+  import Vue from 'vue'
+  import { mapState, mapMutations } from 'vuex'
+  import { SnackbarState, SNACKBAR_NAMESPACE, HIDE_SNACKBAR } from '@/store/domain'
+
+  export default Vue.extend({
+    computed: {
+      ...mapState<SnackbarState>(SNACKBAR_NAMESPACE, {
+        snackbarText: (state: SnackbarState) => state.text,
+        snackbarIndicator: (state: SnackbarState) => state.indicator
+      })
+    },
+    methods: {
+      ...mapMutations(SNACKBAR_NAMESPACE, [HIDE_SNACKBAR]),
+      snackbarInput (value: boolean): void {
+        console.assert(value === false, '`<v-snackbar>` fired `input` with `false`')
+        this.hideSnackbar()
+      }
+    }
+  })
+</script>
