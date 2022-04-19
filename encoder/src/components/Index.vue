@@ -4,13 +4,13 @@
       <v-toolbar-title>2FA Backup Encoder</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon :disabled="!canUndo" @click="undo">
-        <v-icon>mdi-undo</v-icon>
+        <v-icon>undo</v-icon>
       </v-btn>
       <v-btn icon :disabled="!canRedo" @click="redo">
-        <v-icon>mdi-redo</v-icon>
+        <v-icon>redo</v-icon>
       </v-btn>
       <v-btn icon @click="output">
-        <v-icon>mdi-printer</v-icon>
+        <v-icon>print</v-icon>
       </v-btn>
     </v-app-bar>
     <v-content>
@@ -32,7 +32,7 @@
       </v-container>
     </v-content>
     <v-btn fab fixed bottom right color="primary" @click="createTile">
-      <v-icon>mdi-plus</v-icon>
+      <v-icon>add</v-icon>
     </v-btn>
   </div>
 </template>

@@ -30,7 +30,7 @@
   <v-card>
     <v-btn fab small class="chevron--left" @click="placeToLeft"
       v-if="isDndTarget" color="primary">
-      <v-icon>mdi-chevron-left</v-icon>
+      <v-icon>chevron_left</v-icon>
     </v-btn>
     <v-card-title>
       <v-text-field hide-details outlined label="Label"
@@ -49,18 +49,18 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn icon v-if="!isDndSource && !isDndTarget" @click="startDnd">
-        <v-icon>mdi-arrow-all</v-icon>
+        <v-icon>open_with</v-icon>
       </v-btn>
       <v-btn icon v-if="isDndSource" @click="cancelDnd" color="error">
-        <v-icon>mdi-cancel</v-icon>
+        <v-icon>block</v-icon>
       </v-btn>
       <v-btn icon @click="remove">
-        <v-icon>mdi-delete</v-icon>
+        <v-icon>delete</v-icon>
       </v-btn>
     </v-card-actions>
     <v-btn fab small class="chevron--right" @click="placeToRight"
       v-if="isDndTarget" color="primary">
-      <v-icon>mdi-chevron-right</v-icon>
+      <v-icon>chevron_right</v-icon>
     </v-btn>
   </v-card>
 </template>

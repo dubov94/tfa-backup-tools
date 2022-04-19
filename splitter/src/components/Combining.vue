@@ -6,7 +6,7 @@
     <div class="text-h6">Original</div>
     <v-alert v-if="error.length > 0" type="error" class="mt-4">{{ error }}</v-alert>
     <v-textarea v-else solo no-resize readonly class="mt-2" :value="secret"
-      prepend-icon="mdi-content-copy" @click:prepend="copyText"></v-textarea>
+      prepend-icon="content_copy" @click:prepend="copyText"></v-textarea>
   </v-container>
 </template>
 
