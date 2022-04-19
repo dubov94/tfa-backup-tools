@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fontsource/material-icons": "^4.5.4",
+    "@fontsource/roboto": "^4.5.5",
     "core-js": "^3.8.3",
     "secrets.js": "^0.1.8",
     "vue": "^2.6.14",

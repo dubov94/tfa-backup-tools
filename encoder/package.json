@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fontsource/material-icons": "^4.5.4",
+    "@fontsource/roboto": "^4.5.5",
     "core-js": "^3.21.1",
     "jspdf": "^2.3.1",
     "qrcode": "^1.5.0",

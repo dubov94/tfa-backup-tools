@@ -1,3 +1,6 @@
+import '@fontsource/material-icons'
+import '@fontsource/roboto'
+
 import Application from './Application.vue'
 import Vue from 'vue'
 import router from './router'
