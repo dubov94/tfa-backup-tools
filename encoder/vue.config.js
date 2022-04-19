@@ -10,6 +10,7 @@ module.exports = {
         args[0].templateParameters = (...args) =>{
           const parameters = constructTemplateParameters(...args)
           parameters.CSP = ''
+          // https://cli.vuejs.org/guide/mode-and-env.html
           if (process.env.NODE_ENV === 'production') {
             parameters.CSP = [
               "default-src 'none'",
@@ -22,7 +23,10 @@ module.exports = {
                 // `vuetify.Theme.css`
                 "'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='"
               ].join(' '),
-              "font-src 'self' data:"
+              // https://security.stackexchange.com/a/95011
+              "font-src 'self' data:",
+              // https://security.stackexchange.com/a/95011
+              "img-src 'self' data:"
             ].join('; ')
           }
           return parameters
