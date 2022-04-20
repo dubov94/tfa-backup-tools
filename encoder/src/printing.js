@@ -22,7 +22,6 @@ export const print = async (tiles) => {
         document.addPage()
     }
     let dimensions = document.internal.pageSize
-    console.log(dimensions)
     let sH = dimensions.getWidth() / NUMBER_OF_COLUMNS
     let sV = dimensions.getHeight() / NUMBER_OF_ROWS
     let side = Math.min(sH, sV - letterHeight)
