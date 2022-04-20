@@ -15,16 +15,8 @@ module.exports = {
             parameters.CSP = [
               "default-src 'none'",
               "script-src 'self'",
-              [
-                'style-src',
-                "'self'",
-                // `vuetify.Theme.genStyleElement`
-                "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
-                // `vuetify.Theme.css`
-                "'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='",
-                // https://github.com/parallax/jsPDF/blob/2d9a91916471f1fbe465dbcdc05db0cf22d720ec/src/jspdf.js#L3169
-                "'sha256-cQ06adU3/uMUMHtBZsElkcA8pCtSaVI8ThTIFgr+348='"
-              ].join(' '),
+              // To allow for built-in browser styles in PDF's `<iframe>`.
+              "style-src 'self' 'unsafe-inline'",
               // https://security.stackexchange.com/a/95011
               "font-src 'self' data:",
               // https://github.com/soldair/node-qrcode#todataurltext-options-cberror-url-1
