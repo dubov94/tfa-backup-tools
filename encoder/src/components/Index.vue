@@ -1,3 +1,16 @@
+<style scoped>
+  .tiles-enter,
+  .tiles-leave-to {
+    opacity: 0;
+  }
+
+  .tiles-enter-active,
+  .tiles-leave-active,
+  .tiles-move {
+    transition: opacity 0.5s, transform 0.5s;
+  }
+</style>
+
 <template>
   <div>
     <v-app-bar app color="primary" dark>
@@ -15,7 +28,7 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        <v-row>
+        <transition-group name="tiles" tag="div" class="row">
           <v-col cols="4" v-for="tile in tiles" :key="tile.id">
             <tile :header="tile.header" :content="tile.content"
               :mode="idToMode[tile.id]"
@@ -28,7 +41,7 @@
               @remove="removeTile(tile.id)">
             </tile>
           </v-col>
-        </v-row>
+        </transition-group>
       </v-container>
     </v-content>
     <v-btn fab fixed bottom right color="primary" @click="createTile">
