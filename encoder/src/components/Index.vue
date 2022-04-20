@@ -9,7 +9,7 @@
       <v-btn icon :disabled="!canRedo" @click="redo">
         <v-icon>redo</v-icon>
       </v-btn>
-      <v-btn icon @click="output">
+      <v-btn icon @click="print">
         <v-icon>print</v-icon>
       </v-btn>
     </v-app-bar>
@@ -40,8 +40,7 @@
 <script>
   import Tile from '@/components/Tile'
   import TileMode from '@/components/tile-mode'
-  import {mapState, mapActions} from 'vuex'
-  import {print} from '@/components/printer'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     components: {
@@ -82,7 +81,8 @@
         'createTile',
         'deleteTile',
         'updateTile',
-        'moveTile'
+        'moveTile',
+        'print'
       ]),
       updateHeader (id, header) {
         this.updateTile({ id, header })
@@ -105,12 +105,6 @@
       placeToSide(id, delta) {
         this.moveTile({ from: this.dndTile, to: id, delta })
         this.cancelDnd()
-      },
-      async output () {
-        await print(this.tiles.map((tile) => ({
-          header: tile.header,
-          content: tile.content
-        })))
       },
       onKeyDown (event) {
         if (event.ctrlKey) {

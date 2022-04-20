@@ -1,3 +1,4 @@
+import { print } from '@/printing'
 import uuid from 'uuid/v1'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     },
     moveTile ({ commit }, { from, to, delta }) {
       commit('moveTile', { from, to, delta })
+    },
+    print ({ state }) {
+      print(state.tiles)
     }
   }
 })
