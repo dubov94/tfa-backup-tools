@@ -8,7 +8,7 @@ services:
     # Ignoring `Access-Control-Allow-Origin` to allow for self-hosting.
     headers:
       - &x_frame_options
-        path: /
+        path: //
         name: X-Frame-Options
         value: DENY
       - &x_content_type_options
@@ -16,7 +16,7 @@ services:
         name: X-Content-Type-Options
         value: nosniff
       - &content_type_html
-        path: /
+        path: //
         name: Content-Type
         value: text/html; charset=UTF-8
       - &content_type_css
@@ -40,26 +40,26 @@ services:
         name: Content-Type
         value: font/woff2
       - &strict_transport_security
-        path: /
+        path: //
         name: Strict-Transport-Security
         value: max-age=63072000; includeSubDomains; preload
       - &cross_origin_opener_policy
-        path: /
+        path: //
         name: Cross-Origin-Opener-Policy
         value: same-origin
       - &cross_origin_resource_policy
-        path: /
+        path: //
         name: Cross-Origin-Resource-Policy
         value: same-site
       - &cross_origin_embedder_policy
-        path: /
+        path: //
         name: Cross-Origin-Embedder-Policy
         value: require-corp
       - &permissions_policy
-        path: /
+        path: //
         name: Permissions-Policy
         value: interest-cohort=()
-      - path: /
+      - path: //
         name: Content-Security-Policy
         # `style-src 'unsafe-inline'`: To allow for built-in browser styles in PDF's `<iframe>`.
         # `font-src data:`: See https://security.stackexchange.com/a/95011 for considerations.
@@ -96,7 +96,7 @@ services:
       - *cross_origin_resource_policy
       - *cross_origin_embedder_policy
       - *permissions_policy
-      - path: /
+      - path: //
         name: Content-Security-Policy
         # `style-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='`: `vuetify.Theme.genStyleElement`.
         # `style-src 'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='`: `vuetify.Theme.css`.
