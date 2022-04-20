@@ -28,7 +28,14 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        <transition-group name="tiles" tag="div" class="row">
+        <v-row v-if="tiles.length === 0">
+          <v-col :cols="12" class="text-center">
+            <div class="mt-6"><v-icon :size="128">waving_hand</v-icon></div>
+            <p class="mt-12">Click on the plus sign in the bottom right corner to get started.</p>
+            <p>Use the buttons in the top right corner to undo, redo and print the encoded backups.</p>
+          </v-col>
+        </v-row>
+        <transition-group v-else name="tiles" tag="div" class="row">
           <v-col cols="4" v-for="tile in tiles" :key="tile.id">
             <tile :header="tile.header" :content="tile.content"
               :mode="idToMode[tile.id]"
