@@ -34,7 +34,7 @@ module.exports = defineConfig({
               ].join(' '),
               // https://security.stackexchange.com/a/95011
               "font-src 'self' data:",
-              "image-src 'self'"
+              "img-src 'self'"
             ].join('; ')
           }
           return parameters
