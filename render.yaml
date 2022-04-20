@@ -15,10 +15,30 @@ services:
         path: /*
         name: X-Content-Type-Options
         value: nosniff
-      - &content_type
-        path: /*
+      - &content_type_html
+        path: /
         name: Content-Type
         value: text/html; charset=UTF-8
+      - &content_type_css
+        path: /css/*.css
+        name: Content-Type
+        value: text/css
+      - &content_type_js
+        path: /js/*.js
+        name: Content-Type
+        value: text/javascript
+      - &content_type_png
+        path: /*.png
+        name: Content-Type
+        value: image/png
+      - &content_type_woff
+        path: /fonts/*.woff
+        name: Content-Type
+        value: font/woff
+      - &content_type_woff2
+        path: /fonts/*.woff2
+        name: Content-Type
+        value: font/woff2
       - &strict_transport_security
         path: /*
         name: Strict-Transport-Security
@@ -65,7 +85,12 @@ services:
     headers:
       - *x_frame_options
       - *x_content_type_options
-      - *content_type
+      - *content_type_html
+      - *content_type_css
+      - *content_type_js
+      - *content_type_png
+      - *content_type_woff
+      - *content_type_woff2
       - *strict_transport_security
       - *cross_origin_opener_policy
       - *cross_origin_resource_policy
