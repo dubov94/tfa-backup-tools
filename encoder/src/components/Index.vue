@@ -32,7 +32,7 @@
         <v-icon>print</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container>
         <v-row v-if="tiles.length === 0">
           <v-col :cols="12" class="text-center">
@@ -56,7 +56,7 @@
           </v-col>
         </transition-group>
       </v-container>
-    </v-content>
+    </v-main>
     <v-btn fab fixed bottom right color="primary" @click="createTile">
       <v-icon>add</v-icon>
     </v-btn>
