@@ -40,7 +40,7 @@
     <v-card-text>
       <v-responsive :aspect-ratio="1">
         <v-textarea v-if="displayTextArea" hide-details outlined no-resize
-          :rows="10" ref="textArea" v-model="dataContent"
+          :rows="10" ref="textArea" label="Data to encode" v-model="dataContent"
           @change="updateContent" @blur="blurContent">
         </v-textarea>
         <img v-if="displayQrRender" :src="renderUrl" @click="focusContent">

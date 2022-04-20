@@ -33,7 +33,8 @@ module.exports = defineConfig({
                 "'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='"
               ].join(' '),
               // https://security.stackexchange.com/a/95011
-              "font-src 'self' data:"
+              "font-src 'self' data:",
+              "image-src 'self'"
             ].join('; ')
           }
           return parameters

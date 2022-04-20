@@ -8,7 +8,13 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <v-toolbar-title>2FA Backup Splitter</v-toolbar-title>
+      <a href="https://github.com/dubov94/tfa-backup-tools"
+        target="_blank" rel="noopener noreferrer">
+        <v-badge bottom color="red" content="⭐" :offset-x="16" :offset-y="12">
+          <v-img :max-height="48" :max-width="48" src="/Octocat.png"></v-img>
+        </v-badge>
+      </a>
+      <v-app-bar-title class="ml-6">2FA Backup Splitter</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-tabs class="flex-grow-0">
         <v-tab to="/splitting">Split</v-tab>
