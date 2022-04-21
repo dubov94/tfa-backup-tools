@@ -65,8 +65,7 @@ services:
         value: interest-cohort=()
       - path: //
         name: Content-Security-Policy
-        # `style-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='`: `vuetify.Theme.genStyleElement`.
-        # `style-src 'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='`: `vuetify.Theme.css`.
+        # `style-src 'unsafe-inline'`: To allow for built-in browser styles in PDF's `<iframe>`.
         # `font-src data:`: See https://security.stackexchange.com/a/95011 for considerations.
         # `img-src data:`: For https://github.com/soldair/node-qrcode#todataurltext-options-cberror-url-1.
         value: >
@@ -75,7 +74,7 @@ services:
           frame-ancestors 'none';
           default-src 'none';
           script-src 'self';
-          style-src 'self' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI=';
+          style-src 'self' 'unsafe-inline';
           font-src 'self' data:;
           img-src 'self' data:
   - type: web
