@@ -11,6 +11,10 @@ services:
         path: //
         name: X-Frame-Options
         value: DENY
+      - &referrer_policy
+        path: //
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
       - &x_content_type_options
         path: /*
         name: X-Content-Type-Options
@@ -84,6 +88,7 @@ services:
     # Ignoring `Access-Control-Allow-Origin` to allow for self-hosting.
     headers:
       - *x_frame_options
+      - *referrer_policy
       - *x_content_type_options
       - *content_type_html
       - *content_type_css
