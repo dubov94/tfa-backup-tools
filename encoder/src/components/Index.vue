@@ -14,13 +14,7 @@
 <template>
   <div>
     <v-app-bar app color="primary" dark>
-      <a href="https://github.com/dubov94/tfa-backup-tools"
-        target="_blank" rel="noopener noreferrer">
-        <v-badge bottom color="red" content="⭐" :offset-x="16" :offset-y="12">
-          <v-img :max-height="48" :max-width="48" src="/Octocat.png"></v-img>
-        </v-badge>
-      </a>
-      <v-app-bar-title class="ml-6">2FA Backup Encoder</v-app-bar-title>
+      <v-app-bar-title>2FA Backup Encoder</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn icon :disabled="!canUndo" @click="undo">
         <v-icon>undo</v-icon>
@@ -31,6 +25,12 @@
       <v-btn icon @click="print">
         <v-icon>print</v-icon>
       </v-btn>
+      <a href="https://github.com/dubov94/tfa-backup-tools"
+        target="_blank" rel="noopener noreferrer" class="px-1">
+        <v-badge bottom color="red" content="⭐" :offset-x="16" :offset-y="12">
+          <v-img :max-height="48" :max-width="48" src="/Octocat.png"></v-img>
+        </v-badge>
+      </a>
     </v-app-bar>
     <v-main>
       <v-container>
