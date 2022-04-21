@@ -24,6 +24,14 @@
     right: 0;
     transform: translate(50%, -50%) scale(0.5);
   }
+
+  .v-textarea,
+  .v-textarea >>> .v-input__control,
+  .v-textarea >>> .v-input__control > .v-input__slot,
+  .v-textarea >>> .v-input__control > .v-input__slot > .v-text-field__slot,
+  .v-textarea >>> .v-input__control > .v-input__slot > .v-text-field__slot > textarea {
+    height: 100%;
+  }
 </style>
 
 <template>
@@ -33,14 +41,14 @@
       <v-icon>chevron_left</v-icon>
     </v-btn>
     <v-card-title>
-      <v-text-field hide-details outlined label="Label"
+      <v-text-field ref="label" hide-details outlined label="Label"
         v-model="dataHeader" @change="updateHeader">
       </v-text-field>
     </v-card-title>
     <v-card-text>
       <v-responsive :aspect-ratio="1">
-        <v-textarea v-if="displayTextArea" hide-details outlined no-resize
-          :rows="10" ref="textArea" label="Data to encode" v-model="dataContent"
+        <v-textarea hide-details outlined no-resize
+          :rows="4" v-if="displayTextArea" ref="textArea" label="Data to encode" v-model="dataContent"
           @change="updateContent" @blur="blurContent">
         </v-textarea>
         <img v-if="displayQrRender" :src="renderUrl" @click="focusContent">
@@ -86,15 +94,18 @@
         await this.updateRender()
       }
     },
+    mounted () {
+      this.$refs.label.focus()
+    },
     computed: {
       canSwithToRender () {
         return !isStringEmpty(this.dataContent)
       },
       displayTextArea () {
-        return this.showSource
+        return true // this.showSource
       },
       displayQrRender () {
-        return this.renderUrl !== null && !this.displayTextArea
+        return false // this.renderUrl !== null && !this.displayTextArea
       },
       isDndSource () {
         return this.mode === TileMode.DND_SOURCE
