@@ -65,20 +65,19 @@ services:
         value: interest-cohort=()
       - path: //
         name: Content-Security-Policy
-        # `style-src 'unsafe-inline'`: To allow for built-in browser styles in PDF's `<iframe>`.
+        # `style-src 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='`: `vuetify.Theme.genStyleElement`.
+        # `style-src 'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI='`: `vuetify.Theme.css`.
         # `font-src data:`: See https://security.stackexchange.com/a/95011 for considerations.
         # `img-src data:`: For https://github.com/soldair/node-qrcode#todataurltext-options-cberror-url-1.
-        # `frame-src data:`: For // https://github.com/parallax/jsPDF/blob/2d9a91916471f1fbe465dbcdc05db0cf22d720ec/src/jspdf.js#L3086.
         value: >
           base-uri 'none';
           form-action 'none';
           frame-ancestors 'none';
           default-src 'none';
           script-src 'self';
-          style-src 'self' 'unsafe-inline';
+          style-src 'self' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-H0hALk5rjM4aGisbF9hx4t4yVUsKf0ZX1N28nouwAhI=';
           font-src 'self' data:;
-          img-src 'self' data:;
-          frame-src data:
+          img-src 'self' data:
   - type: web
     name: tfa-backup-splitter
     env: static

@@ -1,5 +1,6 @@
 import jsPdf from 'jspdf'
 import qrCode from 'qrcode'
+import printJs from 'print-js'
 
 const NUMBER_OF_COLUMNS = 3
 const NUMBER_OF_ROWS = 3
@@ -52,6 +53,6 @@ export const print = async (tiles) => {
       document.line(x * sH, 0, x * sH, dimensions.getHeight())
     }
   }
-  document.autoPrint()
-  document.output('dataurlnewwindow')
+  const blobUrl = document.output('bloburl')
+  printJs(blobUrl, 'pdf')
 }

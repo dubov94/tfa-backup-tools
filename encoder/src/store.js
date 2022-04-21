@@ -1,4 +1,4 @@
-import { print } from '@/printing'
+import { print } from '@/printer'
 import uuid from 'uuid/v1'
 import Vue from 'vue'
 import Vuex from 'vuex'
