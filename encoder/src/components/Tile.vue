@@ -102,10 +102,10 @@
         return !isStringEmpty(this.dataContent)
       },
       displayTextArea () {
-        return true // this.showSource
+        return this.showSource
       },
       displayQrRender () {
-        return false // this.renderUrl !== null && !this.displayTextArea
+        return this.renderUrl !== null && !this.displayTextArea
       },
       isDndSource () {
         return this.mode === TileMode.DND_SOURCE
