@@ -68,6 +68,7 @@ services:
         # `style-src 'unsafe-inline'`: To allow for built-in browser styles in PDF's `<iframe>`.
         # `font-src data:`: See https://security.stackexchange.com/a/95011 for considerations.
         # `img-src data:`: For https://github.com/soldair/node-qrcode#todataurltext-options-cberror-url-1.
+        # `frame-src blob:`: For https://github.com/crabbly/Print.js/blob/6502c73c7e1ba87346fe4913fa5de6220936095b/src/js/pdf.js#L53-L54.
         value: >
           base-uri 'none';
           form-action 'none';
@@ -76,7 +77,8 @@ services:
           script-src 'self';
           style-src 'self' 'unsafe-inline';
           font-src 'self' data:;
-          img-src 'self' data:
+          img-src 'self' data:;
+          frame-src blob:
   - type: web
     name: tfa-backup-splitter
     env: static
