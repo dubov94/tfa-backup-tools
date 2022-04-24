@@ -2,7 +2,7 @@
 
 Everyone should absolutely use [password managers](https://en.wikipedia.org/wiki/Password_manager) for most of their secrets. But sometimes we just have to resort to good ol' paper to back up root passphrases or 2FA recovery codes. USB keys fail at worst times, and cloud solutions still require [something the user knows](https://en.wikipedia.org/wiki/Multi-factor_authentication#Knowledge). That's what the tools in this repository are for &mdash; to [split](#-splitter) the secrets (if necessary), [encode](#-encoder) them as QR-codes and print them out.
 
-See ['Where do you store your personal private GPG key?'](https://security.stackexchange.com/q/51771) for amusement and additional considerations. Remember, there is [no absolute security](https://xkcd.com/538/).
+See ['Where do you store your personal private GPG key?'](https://security.stackexchange.com/q/51771) for amusement and additional considerations (such as wiping the printer's memory). Remember though, there is [no absolute security](https://xkcd.com/538/).
 
 ## 📝 Encoder
 
@@ -13,7 +13,10 @@ See ['Where do you store your personal private GPG key?'](https://security.stack
 
 Each output page will contain 9 blocks in a grid for easy cutting. Data in each block are encoded into a QR image on blur, and turn back into text on focus again.
 
-![tfa-backup-encoder](/docs/tfa-backup-encoder.gif?raw=true)
+<details>
+  <summary>Demo</summary>
+  <kbd><img src="/docs/tfa-backup-encoder.gif?raw=true"/></kbd>
+</details>
 
 ## 👨‍👩‍👧‍👦 Splitter
 
@@ -24,7 +27,10 @@ Each output page will contain 9 blocks in a grid for easy cutting. Data in each 
 
 The tool uses [Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) 1for splitting the data.
 
-![tfa-backup-splitter](/docs/tfa-backup-splitter.gif?raw=true)
+<details>
+  <summary>Demo</summary>
+  <kdb><img src="/docs/tfa-backup-splitter.gif?raw=true"/></kdb>
+</details>
 
 ## Custom deployment
 
