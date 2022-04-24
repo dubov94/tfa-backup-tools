@@ -12,7 +12,8 @@ See ['Where do you store your personal private GPG key?'](https://security.stack
 > https://tfa-backup-encoder.onrender.com
 
 Each output page will contain 9 blocks in a grid for easy cutting. Data in each block are encoded into a QR image on blur, and turn back into text on focus again.
-![tfa-backup-encoder](/blob/master/docs/tfa-backup-encoder.gif?raw=true)
+
+![tfa-backup-encoder](/docs/tfa-backup-encoder.gif?raw=true)
 
 ## 👨‍👩‍👧‍👦 Splitter
 
@@ -23,7 +24,7 @@ Each output page will contain 9 blocks in a grid for easy cutting. Data in each 
 
 The tool uses [Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) 1for splitting the data.
 
-![tfa-backup-splitter](/blob/master/docs/tfa-backup-splitter.gif?raw=true)
+![tfa-backup-splitter](/docs/tfa-backup-splitter.gif?raw=true)
 
 ## Custom deployment
 
