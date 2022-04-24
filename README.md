@@ -1,6 +1,6 @@
 # 2FA Backup Tools
 
-Everyone should absolutely use [password managers](https://en.wikipedia.org/wiki/Password_manager) for most of their secrets. But sometimes we just have to resort to good ol' paper to back up root passphrases or 2FA recovery codes. USB keys fail at worst times, and cloud solutions still require [something the user knows](https://en.wikipedia.org/wiki/Multi-factor_authentication#Knowledge). That's what the tools in this repository are for &mdash; to [split](#-splitter) the secrets (if necessary), [encode](#-encoder) them as QR-codes and print them out.
+Everyone should absolutely use [password managers](https://en.wikipedia.org/wiki/Password_manager) for most of their secrets. But sometimes we just have to resort to good ol' paper to back up root passphrases or 2FA recovery codes. USB keys fail at worst times, and cloud solutions still require [something the user knows](https://en.wikipedia.org/wiki/Multi-factor_authentication#Knowledge). That's what the tools in this repository are for &mdash; to [split](#-splitter) the secrets (if necessary), [encode](#-encoder) them as QR-codes and print them out. All offline, obviously.
 
 See ['Where do you store your personal private GPG key?'](https://security.stackexchange.com/q/51771) for amusement and additional considerations (such as wiping the printer's memory). Remember though, there is [no absolute security](https://xkcd.com/538/).
 
