@@ -1,6 +1,5 @@
 import jsPdf from 'jspdf'
 import qrCode from 'qrcode'
-import printJs from 'print-js'
 
 const NUMBER_OF_COLUMNS = 3
 const NUMBER_OF_ROWS = 3
@@ -53,12 +52,6 @@ export const print = async (tiles) => {
       document.line(x * sH, 0, x * sH, dimensions.getHeight())
     }
   }
-  // https://github.com/crabbly/Print.js/blob/6502c73c7e1ba87346fe4913fa5de6220936095b/src/js/pdf.js#L6-L11
-  const dataUrl = document.output('dataurlstring')
-  printJs({
-    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs#syntax
-    printable: dataUrl.split(',')[1],
-    type: 'pdf',
-    base64: true
-  })
+  const blobUrl = document.output('bloburl')
+  window.open(blobUrl, '_blank')
 }

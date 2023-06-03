@@ -6,8 +6,6 @@
 
 <template>
   <div id="application">
-    <v-app>
-      <router-view></router-view>
-    </v-app>
+    <router-view></router-view>
   </div>
 </template>

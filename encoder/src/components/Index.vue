@@ -12,7 +12,7 @@
 </style>
 
 <template>
-  <div>
+  <v-app>
     <v-app-bar app color="primary" dark>
       <v-app-bar-title>2FA Backup Encoder</v-app-bar-title>
       <v-spacer></v-spacer>
@@ -37,12 +37,12 @@
         <v-row v-if="tiles.length === 0">
           <v-col :cols="12" class="text-center">
             <div class="mt-6"><v-icon :size="128">waving_hand</v-icon></div>
-            <p class="mt-12">Click on the plus sign in the bottom right corner to get started.</p>
+            <p class="mt-12">Click on the plus sign in the bottom right corner to enter a new secret and encode it as QR.</p>
             <p>Use the buttons in the top right corner to undo, redo and print the encoded backups.</p>
           </v-col>
         </v-row>
         <transition-group v-else name="tiles" tag="div" class="row">
-          <v-col cols="4" v-for="tile in tiles" :key="tile.id">
+          <v-col :cols="4" v-for="tile in tiles" :key="tile.id">
             <tile :header="tile.header" :content="tile.content"
               :mode="idToMode[tile.id]"
               @new-header="updateHeader(tile.id, $event)"
@@ -60,7 +60,7 @@
     <v-btn fab fixed bottom right color="primary" @click="createTile">
       <v-icon>add</v-icon>
     </v-btn>
-  </div>
+  </v-app>
 </template>
 
 <script>
