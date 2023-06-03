@@ -28,7 +28,7 @@ The tool uses [Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s
 Each output page will contain 9 blocks in a grid for easy cutting. Data in each block are encoded into a QR image on blur, and turn back into text on focus again.
 
 <kbd>
-  <p align="center">tfa-backup-splitter.gif</p>
+  <p align="center">tfa-backup-encoder.gif</p>
   <img src="/docs/tfa-backup-encoder.gif?raw=true" height="512"/>
 </kbd>
 
