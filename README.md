@@ -46,7 +46,7 @@ The tool uses [Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s
 
 <kbd>
   <p align="center">tfa-backup-splitter.gif</p>
-  <img src="/docs/tfa-backup-splitter.gif?raw=true" width="477"/>
+  <img src="/docs/tfa-backup-splitter.gif?raw=true" height="512"/>
 </kbd>
 
 ## 📝 Encoder
@@ -65,7 +65,7 @@ Each output page will contain 9 blocks in a grid for easy cutting.
 
 <kbd>
   <p align="center">tfa-backup-encoder.gif</p>
-  <img src="/docs/tfa-backup-encoder.gif?raw=true" width="760"/>
+  <img src="/docs/tfa-backup-encoder.gif?raw=true" height="512"/>
 </kbd>
 
 ## Custom deployment
