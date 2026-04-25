@@ -1,5 +1,5 @@
 import { print } from '@/printer'
-import uuid from 'uuid/v1'
+import { v1 as uuid } from 'uuid'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexUndoRedo from 'vuex-undo-redo';
